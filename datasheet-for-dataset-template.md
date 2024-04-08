@@ -14,21 +14,14 @@ Jump to section:
 
 ## Motivation
 
-_The questions in this section are primarily intended to encourage dataset creators
-to clearly articulate their reasons for creating the dataset and to promote transparency
-about funding interests._
-
 ### For what purpose was the dataset created? 
-
-_Was there a specific task in mind? Was there a specific gap that needed to be filled?
-Please provide a description._
+The dataset _QueerReclaimLex_ was created towards understanding how language models make sense of gender-queer reclaimed slurs. More details are here.
 
 ### Who created the dataset (e.g., which team, research group) and on behalf of which entity (e.g., company, institution, organization)?
+The dataset was created by a team at the University of Southern California's Information Science Institute.
 
 ### Who funded the creation of the dataset? 
-
-_If there is an associated grant, please provide the name of the grantor and the grant
-name and number._
+This dataset is not associated with any grant.
 
 ### Any other comments?
 
