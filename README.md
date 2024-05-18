@@ -1,12 +1,15 @@
 # QueerReclaimLex
 **QueerReclaimLex** is a dataset of ~1K instances of gender-queer online dialect, majority featuring inoffensive uses of slurs or identity terms. Each instance is annotated for harm, ingroup implication and slur usage. The dataset is in `QueerReclaimLex.csv`.
 
+![Examples of QueerReclaimLex](./images/template_examples3.png)
+
 ## **Harm**
 Instances are labeled for two definitions of harm depending on speaker identity. Scores are one of {0, 0.5, 1} where 0 means no harm, .5 means uncertain and 1 means harmful.
 - `HARMFUL_IN`: Whether the post is harmful, given that the author is an *ingroup* member
 - `HARMFUL_OUT`: Whether the post is harmful, given that the author is an *outgroup* member.
-
 Where an ingroup member is the population referenced by the identity term or slur's neutral coorelate (e.g. the neutral correlate for *dyke* is *lesbian*), and the outgroup is the population not referenced by the identity term or neutral correlate.
+
+![Illustration of how ingroup and outgroup terminology are used here](./images/IO_example.png)
 
 Each type of harm has variables for 4 different values. The same can be extended for `HARMFUL_OUT`.
 - `HARMFUL_IN_1` denotes annotator 1's score, `HARMFUL_IN_2` for annotator 2's score
@@ -35,4 +38,7 @@ Slur usage is a multiple selection category describing the context in which a sl
 - `Sexualization`: Speaker uses slur to reference themselves as a member of the ingroup.
 - `Sarcasm`: A slur used ironically, contrary to its original meaning.
 
-![Examples of QueerReclaimLex](./images/template_examples3.png)
+## Model Performance
+![Examples of QueerReclaimLex](./images/promptingschema_2.pdf)
+
+For each model tested, we include a variable for their harm score on the instance under each prompting schema.
