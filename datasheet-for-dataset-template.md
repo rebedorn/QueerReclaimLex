@@ -1,4 +1,4 @@
-# Datasheet for dataset "add dataset name here"
+# Datasheet for dataset "QueerReclaimLex"
 
 Questions from the [Datasheets for Datasets](https://arxiv.org/abs/1803.09010) paper, v7.
 
@@ -34,81 +34,98 @@ about compliance with the EU’s General Data Protection Regulation (GDPR) or
 comparable regulations in other jurisdictions._
 
 ### What do the instances that comprise the dataset represent (e.g., documents, photos, people, countries)?
-
-_Are there multiple types of instances (e.g., movies, users, and ratings; people and
-interactions between them; nodes and edges)? Please provide a description._
+Each instance represents an instance of potentially inoffensive LGBTQ+ slur use and its levels of harm as measured by humans and models.
 
 ### How many instances are there in total (of each type, if appropriate)?
+1442 instances. There are 103 templates, each of which 'explodes' into one instance for each of 14 terms (8 slurs, 6 identity terms).
 
 ### Does the dataset contain all possible instances or is it a sample (not necessarily random) of instances from a larger set?
 
-_If the dataset is a sample, then what is the larger set? Is the sample representative
-of the larger set (e.g., geographic coverage)? If so, please describe how this
-representativeness was validated/verified. If it is not representative of the larger set,
-please describe why not (e.g., to cover a more diverse range of instances, because
-instances were withheld or unavailable)._
+We use [NB-TwitCorpus3M](https://arxiv.org/pdf/2303.04837), a collection of  3 million tweets authored by approximately 3,000 Twitter users who have non-binary pronouns in their profile biography. The presence of pronouns in this dataset is determined by the user's specification. In particular, pronouns are gleaned from any combination of {he, him, his, she, her, hers, they, them, theirs, their, xe, xem, ze, zem} separated by forward slashes or commas, with any or no white space in their profile descriptions. We compile potentially non-derogatory uses of slurs posted by non-binary users that are judged highly toxic by Detoxify.
+
 
 ### What data does each instance consist of? 
 
-_“Raw” data (e.g., unprocessed text or images) or features? In either case, please
-provide a description._
+- template_idx: index for the template used
+- term: the identity term or slur used to substantiate the template
+- text: the actual instantation, the english sentence featuring a (possibly) reclaimed LGBTQ+ slur.
+
 
 ### Is there a label or target associated with each instance?
 
-_If so, please provide a description._
+Annotations for each instance:
+
+Instances are labeled for two definitions of harm depending on speaker identity. Scores are one of {0, 0.5, 1} where 0 means no harm, .5 means uncertain and 1 means harmful.
+- `HARMFUL_IN`: Whether the post is harmful, given that the author is an *ingroup* member
+- `HARMFUL_OUT`: Whether the post is harmful, given that the author is an *outgroup* member.
+Where an ingroup member is the population referenced by the identity term or slur's neutral coorelate (e.g. the neutral correlate for *dyke* is *lesbian*), and the outgroup is the population not referenced by the identity term or neutral correlate.
+
+Each type of harm has variables for 4 different values. The same can be extended for `HARMFUL_OUT`.
+- `HARMFUL_IN_1` denotes annotator 1's score, `HARMFUL_IN_2` for annotator 2's score
+- `HARMFUL_IN_mu` for the mean of the two annotator's harm scores 
+- `HARMFUL_IN_gold` is a binary variable reflecting whether the harm score's mean is above a threshold of 0.5.
+
+**Ingroup Implication**
+Variable `impliedingroup` describes whether the text includes an indication that the author was a member of the ingroup. Values are binary. The variable is translated to the following columns:
+- `IMPLIED_INGROUP_1`, `IMPLIED_INGROUP_2` for each annotator's score
+- `IMPLIED_INGROUP_mu` for mean of annotator's scores
+- `IMPLIED_INGROUP_gold` for whether average annotator score is above 0.5 (in this case, both annotators agree)
+
+**Slur Usage**
+Slur usage is a multiple selection category describing the context in which a slur was used. Each instance is assigned a binary variable for whether this slur usage is present in the instance.
+- `Recollection`: Recollection of a time a slur was used.
+- `Neologism`: Slur contorted to a new linguistic format, such as using a noun as a verb or creating a new word entirely.
+- `Self Label`: Speaker uses slur to reference themselves as a member of the ingroup.
+- `Other Label`: Slur ascribed to someone who is not the speaker.
+- `Group Label`: Slur used to describe a group of people.
+- `Reclamation`: Slur use that places power with ingroup members.
+- `Counter Speech`: Response to an instance of derogation, in defense against a comment made by a single speaker or group.
+- `Quote`: Reference to a slur embedded in a quote or paraphrase. 
+- `Homonym`: A slur with one or more non-derogatory meanings.
+- `Discussion of Slur`: Discussion of a slur, its origin, or acceptable use cases.
+- `Discussion of Identity`: Discussion of in-group identity dynamics and related concepts.
+- `Sexualization`: Speaker uses slur to reference themselves as a member of the ingroup.
+- `Sarcasm`: A slur used ironically, contrary to its original meaning.
 
 ### Is any information missing from individual instances?
 
-_If so, please provide a description, explaining why this information is missing (e.g.,
-because it was unavailable). This does not include intentionally removed information,
-but might include, e.g., redacted text._
+Information identifying which annotator scored each instance is omitted.
 
 ### Are relationships between individual instances made explicit (e.g., users’ movie ratings, social network links)?
 
-_If so, please describe how these relationships are made explicit._
-
-### Are there recommended data splits (e.g., training, development/validation, testing)?
-
-_If so, please provide a description of these splits, explaining the rationale behind them._
+Yes, using template index and term fields.
 
 ### Are there any errors, sources of noise, or redundancies in the dataset?
 
-_If so, please provide a description._
+Some instances have annotator disagreement, creating noisy labels. 
 
 ### Is the dataset self-contained, or does it link to or otherwise rely on external resources (e.g., websites, tweets, other datasets)?
 
-_If it links to or relies on external resources, a) are there guarantees that they will
-exist, and remain constant, over time; b) are there official archival versions of the
-complete dataset (i.e., including the external resources as they existed at the time the
-dataset was created); c) are there any restrictions (e.g., licenses, fees) associated with
-any of the external resources that might apply to a future user? Please provide descriptions
-of all external resources and any restrictions associated with them, as well as links or other
-access points, as appropriate._
+An external resource was used in the dataset's creation but has been anonymized and does not need to be accessed to use this dataset.
 
 ### Does the dataset contain data that might be considered confidential (e.g., data that is protected by legal privilege or by doctor-patient confidentiality, data that includes the content of individuals’ non-public communications)?
 
-_If so, please provide a description._
+The dataset includes short-form texts authored by self-disclosed gender-queer Twitter/X users. This holds potential to out potentially closeted people.
 
 ### Does the dataset contain data that, if viewed directly, might be offensive, insulting, threatening, or might otherwise cause anxiety?
 
-_If so, please describe why._
+Yes, half the dataset uses slurs.
 
 ### Does the dataset relate to people? 
 
-_If not, you may skip the remaining questions in this section._
+Yes
 
 ### Does the dataset identify any subpopulations (e.g., by age, gender)?
 
-_If so, please describe how these subpopulations are identified and provide a description of
-their respective distributions within the dataset._
+All tweets are authored by someone who uses non-binary pronouns.
 
 ### Is it possible to identify individuals (i.e., one or more natural persons), either directly or indirectly (i.e., in combination with other data) from the dataset?
 
-_If so, please describe how._
+Yes, one could identify from the original tweets used to create this dataset.
 
 ### Does the dataset contain data that might be considered sensitive in any way (e.g., data that reveals racial or ethnic origins, sexual orientations, religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history)?
 
-_If so, please provide a description._
+Yes, trans* identity.
 
 ### Any other comments?
 
@@ -119,67 +136,44 @@ reconstruct the dataset without access to it._
 
 ### How was the data associated with each instance acquired?
 
-_Was the data directly observable (e.g., raw text, movie ratings), reported by subjects (e.g.,
-survey responses), or indirectly inferred/derived from other data (e.g., part-of-speech tags,
-model-based guesses for age or language)? If data was reported by subjects or indirectly
-inferred/derived from other data, was the data validated/verified? If so, please describe how._
+From earlier answer: We use [NB-TwitCorpus3M](https://arxiv.org/pdf/2303.04837), a collection of  3 million tweets authored by approximately 3,000 Twitter users who have non-binary pronouns in their profile biography. The presence of pronouns in this dataset is determined by the user's specification. In particular, pronouns are gleaned from any combination of {he, him, his, she, her, hers, they, them, theirs, their, xe, xem, ze, zem} separated by forward slashes or commas, with any or no white space in their profile descriptions. We compile potentially non-derogatory uses of slurs posted by non-binary users that are judged highly toxic by Detoxify.
 
 ### What mechanisms or procedures were used to collect the data (e.g., hardware apparatus or sensor, manual human curation, software program, software API)?
 
-_How were these mechanisms or procedures validated?_
-
-### If the dataset is a sample from a larger set, what was the sampling strategy (e.g., deterministic, probabilistic with specific sampling probabilities)?
+Manual human curation. These procedures were validated by having gender-queer community members separately score the instances for harm.
 
 ### Who was involved in the data collection process (e.g., students, crowdworkers, contractors) and how were they compensated (e.g., how much were crowdworkers paid)?
+The annotators were a combination of students and professors. They were not paid.
 
 ### Over what timeframe was the data collected?
 
-_Does this timeframe match the creation timeframe of the data associated with the instances (e.g.
-recent crawl of old news articles)? If not, please describe the timeframe in which the data
-associated with the instances was created._
+Original tweets from 2021-2022.
 
 ### Were any ethical review processes conducted (e.g., by an institutional review board)?
 
-_If so, please provide a description of these review processes, including the outcomes, as well as
-a link or other access point to any supporting documentation._
+No.
 
 ### Does the dataset relate to people?
-
-_If not, you may skip the remainder of the questions in this section._
+Yes
 
 ### Did you collect the data from the individuals in question directly, or obtain it via third parties or other sources (e.g., websites)?
+Data was collected from then Twitter (now X) using the company's API.
 
 ### Were the individuals in question notified about the data collection?
 
-_If so, please describe (or show with screenshots or other information) how notice was provided,
-and provide a link or other access point to, or otherwise reproduce, the exact language of the
-notification itself._
+No.
 
 ### Did the individuals in question consent to the collection and use of their data?
 
-_If so, please describe (or show with screenshots or other information) how consent was
-requested and provided, and provide a link or other access point to, or otherwise reproduce, the
-exact language to which the individuals consented._
-
-### If consent was obtained, were the consenting individuals provided with a mechanism to revoke their consent in the future or for certain uses?
-
-_If so, please provide a description, as well as a link or other access point to the mechanism
-(if appropriate)._
+No.
 
 ### Has an analysis of the potential impact of the dataset and its use on data subjects (e.g., a data protection impact analysis) been conducted?
 
-_If so, please provide a description of this analysis, including the outcomes, as well as a link
-or other access point to any supporting documentation._
+No.
 
 ### Any other comments?
 
 ## Preprocessing/cleaning/labeling
-
-_The questions in this section are intended to provide dataset consumers with the information
-they need to determine whether the “raw” data has been processed in ways that are compatible
-with their chosen tasks. For example, text that has been converted into a “bag-of-words” is
-not suitable for tasks involving word order._
-
 ### Was any preprocessing/cleaning/labeling of the data done (e.g., discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)?
 
 _If so, please provide a description. If not, you may skip the remainder of the questions in
