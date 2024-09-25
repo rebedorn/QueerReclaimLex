@@ -131,9 +131,6 @@ Yes, trans* identity.
 
 ## Collection process
 
-_\[T\]he answers to questions here may provide information that allow others to
-reconstruct the dataset without access to it._
-
 ### How was the data associated with each instance acquired?
 
 From earlier answer: We use [NB-TwitCorpus3M](https://arxiv.org/pdf/2303.04837), a collection of  3 million tweets authored by approximately 3,000 Twitter users who have non-binary pronouns in their profile biography. The presence of pronouns in this dataset is determined by the user's specification. In particular, pronouns are gleaned from any combination of {he, him, his, she, her, hers, they, them, theirs, their, xe, xem, ze, zem} separated by forward slashes or commas, with any or no white space in their profile descriptions. We compile potentially non-derogatory uses of slurs posted by non-binary users that are judged highly toxic by Detoxify.
@@ -176,47 +173,39 @@ No.
 ## Preprocessing/cleaning/labeling
 ### Was any preprocessing/cleaning/labeling of the data done (e.g., discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)?
 
-_If so, please provide a description. If not, you may skip the remainder of the questions in
-this section._
+Not applicable, as the dataset was manually curated.
 
 ### Was the “raw” data saved in addition to the preprocessed/cleaned/labeled data (e.g., to support unanticipated future uses)?
 
-_If so, please provide a link or other access point to the “raw” data._
+Yes original tweets are still stored.
 
 ### Is the software used to preprocess/clean/label the instances available?
 
-_If so, please provide a link or other access point._
+N/A
 
 ### Any other comments?
 
 ## Uses
 
-_These questions are intended to encourage dataset creators to reflect on the tasks
-for which the dataset should and should not be used. By explicitly highlighting these tasks,
-dataset creators can help dataset consumers to make informed decisions, thereby avoiding
-potential risks or harms._
-
 ### Has the dataset been used for any tasks already?
 
-_If so, please provide a description._
+Yes. The dataset has been used for testing how large language models interpret toxicity of reclaimed slurs.
 
 ### Is there a repository that links to any or all papers or systems that use the dataset?
 
-_If so, please provide a link or other access point._
+Yes, this very github repository!
 
 ### What (other) tasks could the dataset be used for?
 
+Measuring fairness in a toxicity or content moderation model. 
+
 ### Is there anything about the composition of the dataset or the way it was collected and preprocessed/cleaned/labeled that might impact future uses?
 
-_For example, is there anything that a future user might need to know to avoid uses that
-could result in unfair treatment of individuals or groups (e.g., stereotyping, quality of
-service issues) or other undesirable harms (e.g., financial harms, legal risks) If so, please
-provide a description. Is there anything a future user could do to mitigate these undesirable
-harms?_
+No more than already discussed (aka slurs)
 
 ### Are there tasks for which the dataset should not be used?
 
-_If so, please provide a description._
+Actively biasing a model
 
 ### Any other comments?
 
@@ -224,30 +213,24 @@ _If so, please provide a description._
 
 ### Will the dataset be distributed to third parties outside of the entity (e.g., company, institution, organization) on behalf of which the dataset was created? 
 
-_If so, please provide a description._
+Yes!
 
 ### How will the dataset will be distributed (e.g., tarball on website, API, GitHub)?
 
-_Does the dataset have a digital object identifier (DOI)?_
+GitHub
 
-### When will the dataset be distributed?
 
 ### Will the dataset be distributed under a copyright or other intellectual property (IP) license, and/or under applicable terms of use (ToU)?
 
-_If so, please describe this license and/or ToU, and provide a link or other access point to,
-or otherwise reproduce, any relevant licensing terms or ToU, as well as any fees associated
-with these restrictions._
+No
 
 ### Have any third parties imposed IP-based or other restrictions on the data associated with the instances?
 
-_If so, please describe these restrictions, and provide a link or other access point to, or
-otherwise reproduce, any relevant licensing terms, as well as any fees associated with these
-restrictions._
+No
 
 ### Do any export controls or other regulatory restrictions apply to the dataset or to individual instances?
 
-_If so, please describe these restrictions, and provide a link or other access point to, or otherwise
-reproduce, any supporting documentation._
+No
 
 ### Any other comments?
 
@@ -258,28 +241,27 @@ and communicate this plan with dataset consumers._
 
 ### Who is supporting/hosting/maintaining the dataset?
 
+Rebecca Dorn, graduate student at the time of this datasheet
+
 ### How can the owner/curator/manager of the dataset be contacted (e.g., email address)?
+rdorn(at)usc(dot)edu
 
 ### Is there an erratum?
-
-_If so, please provide a link or other access point._
+No
 
 ### Will the dataset be updated (e.g., to correct labeling errors, add new instances, delete instances)?
-
-_If so, please describe how often, by whom, and how updates will be communicated to users (e.g., mailing list, GitHub)?_
+At this time there is no plan for update. However, if adding more instances is something that becomes a plan later, I imagine users would be notified on GitHub.
 
 ### If the dataset relates to people, are there applicable limits on the retention of the data associated with the instances (e.g., were individuals in question told that their data would be retained for a fixed period of time and then deleted)?
 
-_If so, please describe these limits and explain how they will be enforced._
+No
 
 ### Will older versions of the dataset continue to be supported/hosted/maintained?
 
-_If so, please describe how. If not, please describe how its obsolescence will be communicated to users._
+In the case of updates, GitHub will maintain old versions of the dataset.
 
 ### If others want to extend/augment/build on/contribute to the dataset, is there a mechanism for them to do so?
 
-_If so, please provide a description. Will these contributions be validated/verified? If so,
-please describe how. If not, why not? Is there a process for communicating/distributing these
-contributions to other users? If so, please provide a description._
+That would be super cool! I believe I have provided everything needed to do that.
 
 ### Any other comments?
